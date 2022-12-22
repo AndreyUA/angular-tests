@@ -3,12 +3,15 @@ import { LoggerService } from "./logger.service";
 
 describe("CalculatorService", () => {
   it("should add two numbers", () => {
-    const logger = new LoggerService();
+    // const logger = new LoggerService();
 
     // Track this instance and replace method
     // it will help to detect how many times
     // we are using this method(s)
-    spyOn(logger, "log");
+    // spyOn(logger, "log");
+
+    // Create fake implementation of LoggerService
+    const logger = jasmine.createSpyObj("LoggerService", ["log"]);
 
     const calculator = new CalculatorService(logger);
 
