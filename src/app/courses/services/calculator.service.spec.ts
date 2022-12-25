@@ -2,6 +2,9 @@ import { CalculatorService } from "./calculator.service";
 import { LoggerService } from "./logger.service";
 import { TestBed } from "@angular/core/testing";
 
+// xdescribe - disable ALL tests
+// fdescribe - focus only on THIS group of tests
+// instead of other describe, xdescribe and so on
 describe("CalculatorService", () => {
   let calculator: CalculatorService;
   let loggerSpy: any;
@@ -22,6 +25,8 @@ describe("CalculatorService", () => {
     calculator = TestBed.inject(CalculatorService);
   });
 
+  // xit - disable one test
+  // fit - focus only on THIS current test
   it("should add two numbers", () => {
     const result = calculator.add(2, 4);
 
