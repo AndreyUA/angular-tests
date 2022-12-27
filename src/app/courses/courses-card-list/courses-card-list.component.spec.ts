@@ -28,6 +28,7 @@ describe("CoursesCardListComponent", () => {
 
   it("should display the course list", () => {
     component.courses = setupCourses();
+    fixture.detectChanges();
 
     const cards = element.queryAll(By.css(".course-card"));
 
