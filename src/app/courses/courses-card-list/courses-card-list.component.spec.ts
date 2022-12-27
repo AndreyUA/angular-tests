@@ -37,6 +37,16 @@ describe("CoursesCardListComponent", () => {
   });
 
   it("should display the first course", () => {
-    pending();
+    component.courses = setupCourses();
+    fixture.detectChanges();
+
+    const course = component.courses[0];
+    const card = element.query(By.css(".course-card:first-child"));
+    const title = element.query(By.css("mat-card-title"));
+    const image = element.query(By.css("img"));
+
+    expect(card).withContext("Could not find card").toBeTruthy();
+    expect(title.nativeElement.textContent).toBe(course.titles.description);
+    expect(image.nativeElement.src).toBe(course.iconUrl);
   });
 });
