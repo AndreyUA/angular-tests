@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { setupCourses } from "../common/setup-test-data";
 import { By } from "@angular/platform-browser";
 import { of } from "rxjs";
+import { click } from "../common/test-utils";
 
 describe("HomeComponent", () => {
   let fixture: ComponentFixture<HomeComponent>;
@@ -76,6 +77,21 @@ describe("HomeComponent", () => {
   });
 
   it("should display advanced courses when tab clicked", () => {
-    pending();
+    courseService.findAllCourses.and.returnValue(of(setupCourses()));
+    fixture.detectChanges();
+
+    const tabs = element.queryAll(By.css(".mdc-tab"));
+
+    click(tabs[1]);
+    fixture.detectChanges();
+
+    const titles = element.queryAll(By.css("mat-card-title"));
+
+    expect(titles.length)
+      .withContext("Could not find any titles")
+      .toBeGreaterThan(0);
+    expect(titles[0].nativeElement.textContent).toContain(
+      "Angular Security Course"
+    );
   });
 });
