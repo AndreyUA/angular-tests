@@ -30,4 +30,20 @@ fdescribe("async testing examples", () => {
 
     expect(test).toBe(true);
   }));
+
+  fit("async test example with promise", function () {
+    let test: boolean = false;
+
+    console.log("Creating promise");
+
+    Promise.resolve().then(() => {
+      console.log("Promise evaluated successfully");
+
+      test = true;
+    });
+
+    console.log("Running test assertions");
+
+    expect(test).toBe(true);
+  });
 });
