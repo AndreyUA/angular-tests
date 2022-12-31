@@ -76,7 +76,7 @@ describe("HomeComponent", () => {
     expect(tabs.length).withContext("Unexpected numbers of tabs found").toBe(2);
   });
 
-  it("should display advanced courses when tab clicked", (done: DoneFn) => {
+  xit("should display advanced courses when tab clicked", (done: DoneFn) => {
     courseService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
 
