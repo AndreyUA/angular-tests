@@ -90,8 +90,8 @@ describe("HomeComponent", () => {
     expect(titles.length)
       .withContext("Could not find any titles")
       .toBeGreaterThan(0);
-    expect(titles[0].nativeElement.textContent).toContain(
-      "Angular Security Course"
-    );
+    expect(titles[0].nativeElement.textContent)
+      .withContext("Incorrect title content")
+      .toContain("Angular Security Course");
   });
 });
