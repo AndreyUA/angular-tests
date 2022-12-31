@@ -1,4 +1,4 @@
-import { fakeAsync, tick } from "@angular/core/testing";
+import { fakeAsync, flush, tick } from "@angular/core/testing";
 
 fdescribe("async testing examples", () => {
   it("async test example with done callback by Jasmine", function (done: DoneFn) {
@@ -25,7 +25,8 @@ fdescribe("async testing examples", () => {
       test = true;
     }, 1000);
 
-    tick(1000);
+    // tick(1000);
+    flush();
 
     expect(test).toBe(true);
   }));
