@@ -82,7 +82,7 @@ describe("HomeComponent", () => {
     expect(tabs.length).withContext("Unexpected numbers of tabs found").toBe(2);
   });
 
-  it("should display advanced courses when tab clicked", fakeAsync(() => {
+  it("should display advanced courses when tab clicked (the second version with fakeAsync)", fakeAsync(() => {
     courseService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
 
@@ -103,5 +103,28 @@ describe("HomeComponent", () => {
     expect(titles[0].nativeElement.textContent)
       .withContext("Incorrect title content")
       .toContain("Angular Security Course");
+  }));
+
+  it("should display advanced courses when tab clicked (the second version with waitForAsync)", waitForAsync(() => {
+    courseService.findAllCourses.and.returnValue(of(setupCourses()));
+    fixture.detectChanges();
+
+    const tabs = element.queryAll(By.css(".mdc-tab"));
+
+    click(tabs[1]);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const titles = element.queryAll(
+        By.css(".mat-mdc-tab-body-active .mat-mdc-card-title")
+      );
+
+      expect(titles.length)
+        .withContext("Could not find any titles")
+        .toBeGreaterThan(0);
+      expect(titles[0].nativeElement.textContent)
+        .withContext("Incorrect title content")
+        .toContain("Angular Security Course");
+    });
   }));
 });
