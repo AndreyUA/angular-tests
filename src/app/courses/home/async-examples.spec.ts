@@ -43,9 +43,31 @@ fdescribe("async testing examples", () => {
     });
 
     flushMicrotasks();
-    
+
     console.log("Running test assertions");
 
     expect(test).toBe(true);
+  }));
+
+  it("async test example with micro and macro tasks", fakeAsync(function () {
+    let counter: number = 0;
+
+    Promise.resolve().then(() => {
+      counter++;
+
+      setTimeout(() => {
+        counter++;
+      }, 1000);
+    });
+
+    expect(counter).toBe(0);
+
+    flushMicrotasks();
+
+    expect(counter).toBe(1);
+
+    flush();
+
+    expect(2).toBe(2);
   }));
 });
