@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from "@angular/core/testing";
 import { CoursesModule } from "../courses.module";
 import { DebugElement } from "@angular/core";
 import { HomeComponent } from "./home.component";
@@ -76,7 +82,7 @@ describe("HomeComponent", () => {
     expect(tabs.length).withContext("Unexpected numbers of tabs found").toBe(2);
   });
 
-  xit("should display advanced courses when tab clicked", (done: DoneFn) => {
+  it("should display advanced courses when tab clicked", fakeAsync(() => {
     courseService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
 
@@ -85,17 +91,17 @@ describe("HomeComponent", () => {
     click(tabs[1]);
     fixture.detectChanges();
 
-    setTimeout(() => {
-      const titles = element.queryAll(By.css("mat-card-title"));
+    flush();
 
-      expect(titles.length)
-        .withContext("Could not find any titles")
-        .toBeGreaterThan(0);
-      expect(titles[0].nativeElement.textContent)
-        .withContext("Incorrect title content")
-        .toContain("Angular Security Course");
+    const titles = element.queryAll(
+      By.css(".mat-mdc-tab-body-active .mat-mdc-card-title")
+    );
 
-      done();
-    }, 500);
-  });
+    expect(titles.length)
+      .withContext("Could not find any titles")
+      .toBeGreaterThan(0);
+    expect(titles[0].nativeElement.textContent)
+      .withContext("Incorrect title content")
+      .toContain("Angular Security Course");
+  }));
 });
